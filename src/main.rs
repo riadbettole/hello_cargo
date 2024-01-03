@@ -1,35 +1,18 @@
-use rand::Rng;
-use std::cmp::Ordering;
-use std::io;
 
 fn main() {
-    println!("Guess the number!");
+    // Example: Calculate the 10th Fibonacci number
+    let mut s = String::from("hello");
+    println!("{s}");
+    {
+        let r1 = &mut s;
+        r1.push_str("sdss");
+    } // r1 goes out of scope here, so we can make a new reference with no problems.
+    println!("{s}");
+    
+    let r2 = &mut s;
+    println!("{s}");
+}
 
-    let secret_number = rand::thread_rng().gen_range(1..=100);
-
-    loop {
-        println!("Please input your guess.");
-
-        let mut guess = String::new();
-
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line");
-
-        let guess: u32 = match guess.trim().parse() {
-            Ok(num) => num,
-            Err(_) => continue,
-        };
-
-        println!("You guessed: {guess}");
-
-        match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small!"),
-            Ordering::Greater => println!("Too big!"),
-            Ordering::Equal => {
-                println!("You win!");
-                break;
-            }
-        }
-    }
+fn meow(x:&String,y:&String){
+    println!("{x},{y}");
 }
