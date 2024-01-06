@@ -6,14 +6,17 @@ struct User {
 }
 
 fn main() {
-    let mut s = String::from("hello world");
-
-    let word = first_word2(&s);
-    let x = &mut s[0..5];
-    println!("the first word is: {}", word);
-    x.make_ascii_uppercase();
-
-    println!("the first word is: {}", x);
+    let user1 = User {
+        active: true,
+        username: String::from("someusername123"),
+        email: String::from("someone@example.com"),
+        sign_in_count: 1,
+    };
+    let mut user2 = User {
+        ..user1
+    };
+    user2.email = String::from("someone@example.com");
+    println!("{}",user2.email);
 }
 
 fn return_first_word(text:&String)->String{
@@ -27,15 +30,15 @@ fn return_first_word(text:&String)->String{
     word
 }
 
-fn first_word2(s: &String) -> &str {
+fn first_word2(s: &mut str) -> &mut str {
     let bytes = s.as_bytes();
 
     for (i, &item) in bytes.iter().enumerate() {
         if item == b' ' {
-            return &s[0..i];
+            return &mut s[0..i];
         }
     }
-    &s[..]
+    &mut s[..]
 }
 
 fn first_word(s: &String) -> usize {
