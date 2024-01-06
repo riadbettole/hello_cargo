@@ -1,18 +1,53 @@
+struct User {
+    active: bool,
+    username: String,
+    email: String,
+    sign_in_count: u64,
+}
 
 fn main() {
-    // Example: Calculate the 10th Fibonacci number
-    let mut s = String::from("hello");
-    println!("{s}");
-    {
-        let r1 = &mut s;
-        r1.push_str("sdss");
-    } // r1 goes out of scope here, so we can make a new reference with no problems.
-    println!("{s}");
-    
-    let r2 = &mut s;
-    println!("{s}");
+    let mut s = String::from("hello world");
+
+    let word = first_word2(&s);
+    let x = &mut s[0..5];
+    println!("the first word is: {}", word);
+    x.make_ascii_uppercase();
+
+    println!("the first word is: {}", x);
 }
 
-fn meow(x:&String,y:&String){
-    println!("{x},{y}");
+fn return_first_word(text:&String)->String{
+    let mut word = String::from("");
+    for c in text.chars() {
+        if c == ' '{
+            break;
+        }
+        word.push(c)
+    }
+    word
 }
+
+fn first_word2(s: &String) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+    &s[..]
+}
+
+fn first_word(s: &String) -> usize {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return i;
+        }
+    }
+
+    s.len()
+}
+
+
