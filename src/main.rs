@@ -28,62 +28,27 @@ impl Message {
 // mod lib;
 
 use hello_cargo::front_of_house::hosting;
+use std::fs::File;
+use std::io::{self, Read};
+
+fn read_username_from_file() -> Result<String, io::Error> {
+    let mut username = String::new();
+
+    File::open("hello.txt")?.read_to_string(&mut username)?;
+
+    Ok(username)
+}
 
 fn main() {
+    // let greeting_file_result = File::open("hello.txt");
 
-    let v = vec![1, 2, 3, 4, 5];
-
-    let third: &i32 = &v[2];
-    println!("The third element is {third}");
-
-    let third: Option<&i32>= v.get(2);
-    match third {
-        Some(third) => println!("The third element is {third}"),
-        None => println!("There is no third element."),
-    }
-
-    let mut v = vec![1, 2, 3, 4, 5];
-
-    let first = &v[0];
-
-    // v.push(6);
-
-    println!("The first element is: {first}");
-
-    let v = vec![100, 32, 57];
-
-    let mut v = vec![100, 32, 57];
-    for i in &mut v {
-        *i += 50;
-    }
-
-    for i in &v {
-        println!("{i}");
-    }
-
-    let x = 5;
-    let y = 3;
-    let v = vec![&x, &y];
-
-    let s1 = String::from("tic");
-    let s2 = String::from("tac");
-    let s3 = String::from("toe");
-
-    let s = s1 + "-" + &s2 + "-" + &s3;
-    
-    let hello = "Здравствуйте";
-    
-    let s = &hello[0..4];
-    println!("{}",s);
-
-    use std::collections::HashMap;
-
-    let mut scores = HashMap::new();
-    scores.insert(String::from("Blue"), 10);
-
-    scores.entry(String::from("Yellow")).or_insert(50);
-    scores.entry(String::from("Blue")).or_insert(50);
-
-    println!("{:?}", scores);
-
+    let x = read_username_from_file();
+    let f = match x {
+        Ok(f) => f,
+        Err(err) => panic!("i love it, {}",err),
+    };
+    // let greeting_file = match greeting_file_result {
+        // Ok(file) => file,
+        // Err(error) => panic!("Problem opening the file: {:?}", error),
+    // };
 }
